@@ -222,4 +222,63 @@ int main() {
     }
     return 0;
 }
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Student {
+    int id;
+    char name[50];
+    float marks;
+};
+
+struct Student students[MAX];
+int count = 0;
+
+void addStudent() {
+    if (count < MAX) {
+        printf("Enter ID: ");
+        scanf("%d", &students[count].id);
+        printf("Enter Name: ");
+        scanf(" %[^\n]", students[count].name);
+        printf("Enter Marks (out of 100): ");
+        scanf("%f", &students[count].marks);
+        count++;
+    } else {
+        printf("Limit reached.\n");
+    }
+}
+
+void generateReport() {
+    printf("\n--- Student Report ---\n");
+    for (int i = 0; i < count; i++) {
+        char grade;
+        if (students[i].marks >= 90) grade = 'A';
+        else if (students[i].marks >= 75) grade = 'B';
+        else if (students[i].marks >= 60) grade = 'C';
+        else if (students[i].marks >= 50) grade = 'D';
+        else grade = 'F';
+
+        printf("ID: %d, Name: %s, Marks: %.2f, Grade: %c\n",
+               students[i].id, students[i].name, students[i].marks, grade);
+    }
+}
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\n1. Add Student\n2. Generate Report\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+        if (choice == 1)
+            addStudent();
+        else if (choice == 2)
+            generateReport();
+        else if (choice == 3)
+            break;
+        else
+            printf("Invalid choice.\n");
+    }
+    return 0;
+}
 

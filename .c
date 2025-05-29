@@ -166,4 +166,60 @@ int main() {
     }
     return 0;
 }
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Inventory {
+    int itemId;
+    char itemName[50];
+    int quantity;
+    char issuedTo[50];
+};
+
+struct Inventory items[MAX];
+int count = 0;
+
+void addItem() {
+    if (count < MAX) {
+        printf("Enter Item ID: ");
+        scanf("%d", &items[count].itemId);
+        printf("Enter Item Name: ");
+        scanf(" %[^\n]", items[count].itemName);
+        printf("Enter Quantity: ");
+        scanf("%d", &items[count].quantity);
+        printf("Issued To (Student Name): ");
+        scanf(" %[^\n]", items[count].issuedTo);
+        count++;
+    } else {
+        printf("Inventory full.\n");
+    }
+}
+
+void displayItems() {
+    printf("\n--- Inventory Records ---\n");
+    for (int i = 0; i < count; i++) {
+        printf("ID: %d, Name: %s, Qty: %d, Issued To: %s\n",
+               items[i].itemId, items[i].itemName,
+               items[i].quantity, items[i].issuedTo);
+    }
+}
+
+int main() {
+    int choice;
+    while (1) {
+        printf("\n1. Add Item\n2. Display Items\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+        if (choice == 1)
+            addItem();
+        else if (choice == 2)
+            displayItems();
+        else if (choice == 3)
+            break;
+        else
+            printf("Invalid choice.\n");
+    }
+    return 0;
+}
 
